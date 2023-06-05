@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+{{answers}}
+<hr/>
+{% for ans in answers %}
+{{ans}}
+<hr>
+{% for an in ans %}
+{{an}}
+{% endfor %}
+{% endfor %}
+{% endblock main_content %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-6 my-6 mt-0 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center">
+        <h1 class="display-4 text-white animated slideInDown mb-4 timer-box"><span class="timer">{{quiz.name}}</span>.</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                <li class="breadcrumb-item text-primary active" aria-current="page">Quiz - Ibyapa</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+{% comment %} action="{% url 'save_quiz' quiz.id %} {% endcomment %}
+
+<div class="container display-marks  mt-sm-5 my-1">
+    <form id="quiz-form" method="post">
+    {% csrf_token %}
+    {% for question in quiz.get_questions  %}
+    <div class="question ml-sm-5 pl-sm-5 pt-2">
+        <div class="py-2 h5"><b>Q. {{question}}</b></div>
+        {% if question.img %}<img width="50" height="50" src="{{question.img.url}}" alt="">{% endif %}
+        {% for answer in question.get_answers %}
+        <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+            <label class="options"> 
+                {% if question.can_choose_many %}
+                <input type="checkbox" name="{{question}}" value="{{answer.text}}" class="answer">
+                <span class="checkmark checkbox_mark"></span>
+                {%else%}
+                <input type="radio" name="{{question}}" value="{{answer.text}}" class="answer">
+                <span class="checkmark"></span>
+                {%endif%}
+                {{answer.text}}
+            </label>
+        </div>
+        {% endfor %}
+    </div>
+    <hr/>
+    {% endfor %}
+    <div class="d-flex align-items-center pt-3">
+        <div id="prev">
+            <button class="btn btn-primary mr-5 btn-quiz">Submit</button>
+        </div>
+    </div>
+</form>
+</div>
+<script src="{% static 'quiz_app/js/quiz.js'%}"></script>
+{% endblock main_content %}

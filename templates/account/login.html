@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+<div class="container-xxl py-6">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
+                <h6 class="text-primary text-uppercase mb-2">Login Here</h6>
+                <form method="post" action="{% url 'account_login' %}">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control border-0 bg-light" id="subject" placeholder="Subject" name="username">
+                                <label for="subject">Username</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="password" name="password" class="form-control border-0 bg-light" id="subject" placeholder="Subject">
+                                <label for="subject">Password</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <button class="btn btn-primary py-3 px-5" type="submit">Login</button>
+                        </div>
+                        <a class="button secondaryAction" href="{% url 'account_reset_password' %}">forgot password</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
